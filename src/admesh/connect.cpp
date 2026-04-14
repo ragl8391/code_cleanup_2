@@ -121,7 +121,7 @@ struct HashEdge {
 
 struct HashTableEdges {
     explicit HashTableEdges(size_t number_of_faces) {
-        this->M = static_cast<int>hash_size_from_nr_faces(number_of_faces);
+        this->M = static_cast<int>(hash_size_from_nr_faces(number_of_faces));
         this->heads.assign(this->M, nullptr);
         this->tail = pool.construct();
         this->tail->next = this->tail;
@@ -625,7 +625,7 @@ void stl_remove_unconnected_facets(stl_file *stl) {
             ++i;
         }
 
-    if (stl->stats.connected_facets_1_edge < static_cast<int>stl->stats.number_of_facets) {
+    if (stl->stats.connected_facets_1_edge < static_cast<int>(stl->stats.number_of_facets)) {
         // There are some faces with no connected edge at all. Remove completely unconnected facets.
         for (uint32_t i = 0; i < stl->stats.number_of_facets;)
             if (stl->neighbors_start[i].num_neighbors() == 0) {
@@ -671,24 +671,24 @@ void stl_fill_holes(stl_file *stl) {
 
               for (;;) {
                 int pivot_vertex = 0;
-                int next_edge = 0
+                int next_edge = 0;
                 if (vnot > 2) {
-                      if (direction) {
+                    if (direction) {
                         pivot_vertex = (vnot + 1) % 3;
                         next_edge = vnot % 3;
-                      } else {
+                    } else {
                         pivot_vertex = (vnot + 2) % 3;
                         next_edge = pivot_vertex;
-                      }
+                    }
                       direction = !direction;
                 } else {
-                      if (direction == 0) {
+                    if (direction == 0) {
                         pivot_vertex = (vnot + 1) % 3;
                         next_edge = vnot;
-                      } else {
+                    } else {
                         pivot_vertex = (vnot + 2) % 3;
                         next_edge = pivot_vertex;
-                      }
+                    }
                 }
 
                 int next_facet = stl->neighbors_start[facet_num].neighbor[next_edge];
